@@ -1,5 +1,5 @@
 # NOTE: update this with your service name
-service: notes-app-api
+service: dc-concierge
 
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
@@ -50,51 +50,26 @@ functions:
     handler: create-appointment.main
     events:
       - http:
-          path: appointment
+          path: appointments
           method: post
           cors: true
           authorizer: aws_iam
-  # Defines an HTTP API endpoint that calls the main function in create-opportunity.js
-  # - path: url path is /opportunity
-  # - method: POST request
-  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
-  #     domain api call
-  # - authorizer: authenticate using the AWS IAM role
   create-opportunity:
-  handler: create-opportunity.main
-  events:
-    - http:
-        path: opportunity
-        method: post
-        cors: true
-        authorizer: aws_iam
-  # Defines an HTTP API endpoint that calls the main function in create-user.js
-  # - path: url path is /user
-  # - method: POST request
-  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
-  #     domain api call
-  # - authorizer: authenticate using the AWS IAM role
-  create-user:
-  handler: create-user.main
-  events:
-    - http:
-        path: user
-        method: post
-        cors: true
-        authorizer: aws_iam
-
-  get:
-    # Defines an HTTP API endpoint that calls the main function in get.js
-    # - path: url path is /notes/{id}
-    # - method: GET request
-    handler: get.main
+    handler: create-opportunity.main
     events:
       - http:
-          path: notes/{id}
-          method: get
+          path: opportunities
+          method: post
           cors: true
           authorizer: aws_iam
-  
+  create-user:
+    handler: create-user.main
+    events:
+      - http:
+          path: users
+          method: post
+          cors: true
+          authorizer: aws_iam
   list-appointments:
     # Defines an HTTP API endpoint that calls the main function in list-appointments.js
     # - path: url path is /appointment
@@ -102,7 +77,7 @@ functions:
     handler: list-appointments.main
     events:
       - http:
-          path: appointment
+          path: appointments
           method: get
           cors: true
           authorizer: aws_iam
@@ -113,43 +88,8 @@ functions:
     handler: list-opportunities.main
     events:
       - http:
-          path: opportunity
+          path: opportunities
           method: get
-          cors: true
-          authorizer: aws_iam
-  list-users:
-    # Defines an HTTP API endpoint that calls the main function in list-users.js
-    # - path: url path is /user
-    # - method: GET request
-    handler: list-users.main
-    events:
-      - http:
-          path: user
-          method: get
-          cors: true
-          authorizer: aws_iam
-
-  update:
-    # Defines an HTTP API endpoint that calls the main function in update.js
-    # - path: url path is /notes/{id}
-    # - method: PUT request
-    handler: update.main
-    events:
-      - http:
-          path: notes/{id}
-          method: put
-          cors: true
-          authorizer: aws_iam
-  
-  delete:
-    # Defines an HTTP API endpoint that calls the main function in delete.js
-    # - path: url path is /notes/{id}
-    # - method: DELETE request
-    handler: delete.main
-    events:
-      - http:
-          path: notes/{id}
-          method: delete
           cors: true
           authorizer: aws_iam
         
