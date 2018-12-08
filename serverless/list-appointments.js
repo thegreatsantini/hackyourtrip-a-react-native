@@ -1,6 +1,11 @@
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import {success, failure} from "./libs/response-lib";
 
+
+// We need to make another one of these functions, the key based on Entrepreneur vs Investor Id.
+// One for each index, rename the function to list-appointments-entrepreneur, rename the routes in sls.yml
+
+
 export async function main(event, context, callback) {
     const params = {
         TableName: "Appointments",

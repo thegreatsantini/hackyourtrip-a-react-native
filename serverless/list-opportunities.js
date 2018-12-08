@@ -6,6 +6,8 @@ export async function main(event, context, callback) {
         TableName: "Opportunities",
     };
 
+    // KeyCondition Expression is City, so migrate funcitonality from list appointments.
+
     try {
         const result = await dynamoDbLib.call("query", params);
         // Return the matching list of items in response body
