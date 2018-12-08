@@ -20,14 +20,15 @@ export async function main(event, context, callback) {
 		
 		Item: {
 			// need to determine how to add multiple users
-			userId1: event.requestContext.identity.cognitoIdentityId,
-			userId2: event.requestContext.identity.cognitoIdentityId,
-			appointmentId: uuid.v4(),
-			appointmentTime: data.time,
-			appointmentLocation: data.location, // restaurant id?
-			attachment: data.attachment,
-			opportunity: data.opportunity, // reference to opportunity object
-			createdAt: Date.now()
+			InvestorId: event.requestContext.identity.cognitoIdentityId,
+			EntrepreneurId: data.entrepreneurId,
+			AppointmentId: uuid.v4(),
+			DateTime: data.time,
+			RestaurantId: data.restaurantId,
+			AppointmentLocation: data.location, //address
+			Attachment: data.attachment,
+			Opportunity: data.opportunity, // reference to opportunity object
+			CreatedAt: Date.now()
 		}
 	};
 	

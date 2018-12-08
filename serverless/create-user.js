@@ -17,11 +17,16 @@ export async function main(event, context, callback) {
 		// - 'createdAt': current Unix timestamp
 		
 		Item: {
-			userId: event.requestContext.identity.cognitoIdentityId,
-			userRole: data.role,
-			userIndustry: data.industry,
-			userLocation: data.location,
-			createdAt: Date.now()
+			UserId: event.requestContext.identity.cognitoIdentityId,
+			Role: data.role,
+			FirstName: data.firstName,
+			LastName: data.lastName,
+			Email: data.email,
+			Phone: data.phone,
+			Currency: data.currency,
+			Industry: data.industry,
+			City: data.city,
+			CreatedAt: Date.now()
 		}
 	};
 	

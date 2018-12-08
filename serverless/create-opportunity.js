@@ -22,15 +22,16 @@ export async function main(event, context, callback) {
 		// - 'createdAt': current Unix timestamp
 		
 		Item: {
-			userId: event.requestContext.identity.cognitoIdentityId,
-			opportunityId: uuid.v4(),
-			pitch: data.pitch,
-			currency: data.currency,
-			attachment: data.attachment,
-			location: data.location,
-			fundingAmount: data.fundingAmount,
-			timeFrame: data.timeFrame,
-			createdAt: Date.now()
+			City: data.city,
+			EntrepreneurId: event.requestContext.identity.cognitoIdentityId,
+			OpportunityId: uuid.v4(),
+			Title: data.title,
+			Pitch: data.pitch,
+			Currency: data.currency,
+			Attachment: data.attachment,
+			Amount: data.amount,
+			ClosingDate: data.closingDate,
+			CreatedAt: Date.now()
 		}
 	};
 	
