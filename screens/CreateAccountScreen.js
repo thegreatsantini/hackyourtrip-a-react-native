@@ -8,7 +8,7 @@ class CreateAccountScreen extends Component
         return (
           <View style={styles.container}>
             <Text>Create Account Screen</Text>
-
+            
           </View>
         );
     }

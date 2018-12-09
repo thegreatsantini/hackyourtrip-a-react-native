@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import  authenticateUser  from "./utils"
+
 
 import AppNavigator from './config/routes';
 
 import { Provider } from './contexts';
 import Amplify from "aws-amplify";
-import config from "./config";
+import config from "./config/config";
+import Sandbox from "./Sandbox";
 
 export default class App extends React.Component {
   async componentWillMount() {
@@ -17,7 +20,7 @@ export default class App extends React.Component {
   }
 
   async configure() {
-    await Amplify.configure({
+    const result = await Amplify.configure({
       Auth: {
           mandatorySignIn: true,
           region: config.cognito.REGION,
@@ -40,12 +43,13 @@ export default class App extends React.Component {
           ]
       }
   });
+  // console.log('Result: ', result);
   }
 
   render() {
     return (
       <Provider>
-        <AppNavigator />
+        <AppNavigator/>
       </Provider>
     );
   }
