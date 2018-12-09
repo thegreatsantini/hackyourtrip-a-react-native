@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, Text} from 'react-native';
 
-class ClassListScreen extends Component
+class ProfileScreen extends Component
 {
     render()
     {
         return (
           <View style={styles.container}>
-            <Text>ClassList Screen</Text>
+            <Text>Schedule Screen</Text>
 
           </View>
         );
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default ClassListScreen;
+export default ProfileScreen;
