@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, Text} from 'react-native';
+import AppointmentListScreen from "./AppointmentListScreen"
 
 class InvestScreen extends Component
 {
@@ -8,6 +9,7 @@ class InvestScreen extends Component
         return (
           <View style={styles.container}>
             <Text>Invest Screen</Text>
+            <AppointmentListScreen />
 
           </View>
         );
