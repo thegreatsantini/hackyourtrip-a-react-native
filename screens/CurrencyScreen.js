@@ -1,52 +1,115 @@
-import React, { Component } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { Picker, Icon, Item, Input, Form } from "native-base";
-import currencyCodesData from "currency-codes/data";
+import React, { Component } from 'react';
+
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Picker,
+  TouchableWithoutFeedback,
+  Keyboard
+} from 'react-native';
+
+
+
+import currencyCodesData from 'currency-codes/data';
+import InputWithButton from '../components/TextInputWithButton';
 
 class CurrencyScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedHome: "USD",
-      selectedLocal: "USD"
-    };
+  state = {
+    currencies: [],
+    investCurrency: 'USD',
+    localCurrency: 'USD',
+    investAmount: '1000',
+    countryAmount: '0',
+    showMyCurrency: false,
+    showLocalCurrency: false,
+  };
+
+  componentWillMount() {
+
+    this.getCurrencies();
   }
-  onValueChangeHome(value) {
-    this.setState({
-      selectedHome: value
+
+  getCurrencies = () => {
+    let currency = [];
+    currencyCodesData.map(country => {
+      currency.push(country.code);
     });
+
+    this.setState({ currencies: currency });
+  };
+
+  handleYourCurrencyChange = (text) => {
+    this.setState({investAmount: text })
   }
-  onValueChangeLocal(value) {
-    this.setState({
-      selectedLocal: value
-    });
+
+  handleMyCurrencyTypeChange = (value) => {
+    this.setState({investCurrency: value, showMyCurrency: false })
   }
+  handleLocalCurrencyTypeChange = (value) => {
+    this.setState({localCurrency: value, showLocalCurrency: false })
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Form>
-          <Text>Home Currency: </Text>
-          <Picker
-                mode="dropdown"
-                iosIcon={<Icon name="ios-arrow-down" />}
-                headerBackButtonText="Back"
-                selectedValue={this.state.selectedHome}
-                onValueChange={this.onValueChangeHome.bind(this)}
-              >
-            {PopulateCountryDropdown()}
-          </Picker>
-          <Text>Local Currency: </Text>
-          <Picker
-                mode="dropdown"
-                iosIcon={<Icon name="ios-arrow-down" />}
-                headerBackButtonText="Back"
-                selectedValue={this.state.selectedLocal}
-                onValueChange={this.onValueChangeLocal.bind(this)}
-              >
-            {PopulateCountryDropdown()}
-          </Picker>
-        </Form>
-      </View>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.container}>
+
+            <View>
+              <InputWithButton
+                  buttonText={this.state.investCurrency}
+                  keyboardType={'numeric'}
+                  onChangeText={this.handleYourCurrencyChange}
+                  value={this.state.investAmount}
+                  onPress={() => this.setState({showMyCurrency: true})}
+              />
+            </View>
+            <View>
+              <InputWithButton
+                  buttonText={this.state.localCurrency}
+                  editable={false}
+                  value={this.state.countryAmount}
+                  onPress={() => this.setState({showLocalCurrency: true})}
+              />
+            </View>
+
+            {this.state.showMyCurrency
+                ? <View style={styles.pickerContainer}>
+                  <Picker
+                      selectedValue={this.state.investCurrency}
+                      style={[styles.picker]} itemStyle={styles.pickerItem}
+                      onValueChange={(itemValue, itemIndex) => this.handleMyCurrencyTypeChange(itemValue)}>
+                    {this.state.currencies.map((item) => <Picker.Item key={item} label={item} value={item} />)}
+
+                  </Picker>
+                  <View style={styles.arrowWrapper}>
+                    <Text style={styles.arrow}>&#9660;</Text>
+                  </View>
+                </View>
+                : null
+            }
+            {this.state.showLocalCurrency
+                ? <View style={styles.pickerContainer}>
+                  <Picker
+                      selectedValue={this.state.localCurrency}
+                      style={[styles.picker]} itemStyle={styles.pickerItem}
+                      onValueChange={(itemValue, itemIndex) => this.handleLocalCurrencyTypeChange(itemValue)}>
+                    {this.state.currencies.map((item) => <Picker.Item key={item} label={item} value={item} />)}
+
+                  </Picker>
+                  <View style={styles.arrowWrapper}>
+                    <Text style={styles.arrow}>&#9660;</Text>
+                  </View>
+                </View>
+                : null
+            }
+
+
+
+          </View>
+        </TouchableWithoutFeedback>
     );
   }
 }
@@ -54,23 +117,49 @@ class CurrencyScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: Expo.Constants.statusBarHeight,
+  },
+  bubbleContainer: {
+    flexDirection: 'row',
+  },
+  bubble: {
+    paddingHorizontal: 20,
+  },
+  pickerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    // alignItems: 'center',
+    marginTop: 0,
+  },
+  picker: {
+    width: 200,
+    height: 44,
+    backgroundColor: '#FFF0E0',
+    borderColor: 'red',
+    borderBottomWidth: 2,
+    flex: 90
+  },
+
+  pickerItem: {
+    height: 44,
+    color: 'red'
+  },
+
+  arrowWrapper: {
+    backgroundColor: '#FFF0E0',
+    flex: 10,
+    height: 40,
+    marginLeft: -28,
+    justifyContent: 'center'
+  },
+
+  arrow: {
+    textAlign: 'center',
+    color: 'red',
   }
 });
-
-function PopulateCountryDropdown() {
-  let countryCodes = [];
-  currencyCodesData.forEach(function(item) {
-    countryCodes.push(item.code);
-  });
-  return countryCodes.map((countryCode, i) => (
-    <Picker.Item
-      key={i}
-      label={countryCode.toString()}
-      value={countryCode.toString()}
-    />
-  ));
-}
 
 export default CurrencyScreen;

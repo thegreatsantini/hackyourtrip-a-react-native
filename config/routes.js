@@ -11,7 +11,6 @@ import {
 } from 'react-navigation'
 
 import FirstScreen from "../screens/FirstScreen";
-import AppointmentListScreen from "../screens/AppointmentListScreen";
 import InvestScreen from "../screens/InvestScreen";
 import RestaurantScreen from "../screens/RestaurantScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -20,6 +19,10 @@ import LoginScreen from "../screens/LoginScreen";
 import CreateAccountScreen from "../screens/CreateAccountScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import CurrencyScreen from "../screens/CurrencyScreen";
+import CurrencyListScreen from "../screens/CurrencyListScreen";
+
+import {Provider} from "../CurrencyContext"
+import Sandbox from "../Sandbox";
 
 
 const AuthStackNavigator = createStackNavigator({
@@ -34,19 +37,31 @@ const RestaurantStack = createStackNavigator({
 })
 
 const AppointmentListStack = createStackNavigator({
-    ClassList: {screen: AppointmentListScreen},
+    ClassList: {screen: InvestScreen},
 
 })
 
 const InvestStack = createStackNavigator({
-    StatsScreen: {screen: InvestScreen},
+    InvestScreen: {screen: InvestScreen},
     // ProfileScreen: {},
+})
+
+const CurrencyStack = createStackNavigator({
+    CurrencyScreen: {screen: CurrencyScreen},
+    // CurrencyListScreen: {
+    //     screen: CurrencyListScreen,
+    //     navigationOptions: ({navigation}) => ({
+    //         headerTitle: navigation.state.params.title
+    //     })
+    // }
+}, {
+    mode: 'modal'
 })
 
 const AppTabNavigator = createBottomTabNavigator({
     Restaurant: {screen: RestaurantStack},
     Invest: {screen: InvestStack},
-    Currency: {screen: CurrencyScreen},
+    Currency: {screen: CurrencyStack},
     Profile: {screen: ProfileScreen},
 })
 
