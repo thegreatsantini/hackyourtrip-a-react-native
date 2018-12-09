@@ -11,13 +11,16 @@ import {
   Keyboard
 } from 'react-native';
 
+import axios from 'axios'
 
 
 import currencyCodesData from 'currency-codes/data';
 import InputWithButton from '../components/TextInputWithButton';
+import authenticateUser from "../utils";
 
 class CurrencyScreen extends Component {
   state = {
+    token:  "",
     currencies: [],
     investCurrency: 'USD',
     localCurrency: 'USD',
@@ -27,9 +30,32 @@ class CurrencyScreen extends Component {
     showLocalCurrency: false,
   };
 
-  componentWillMount() {
 
+
+
+
+
+  async componentWillMount() {
+    Keyboard.addListener('keyboardWillHide', (e) => this.keyboardWillHide(e))
+    try {
+      const token = await authenticateUser()
+      this.setState({token})
+    }
+    catch (e) {
+      console.log( `From the Context: ${e}`)
+    }
     this.getCurrencies();
+
+  }
+
+  keyboardWillHide (e) {
+    let newAmount = this.getExchangeRate(this.state.investAmount, this.state.localCurrency)
+        .then( (data) => {
+              this.setState({countryAmount: data.toFixed(2).toString()})
+            }
+
+        )
+
   }
 
   getCurrencies = () => {
@@ -41,6 +67,32 @@ class CurrencyScreen extends Component {
     this.setState({ currencies: currency });
   };
 
+  getExchangeRate = async (amount, currencyType) => {
+    try {
+      const response = await axios.get(`https://api.discover.com/dci/currencyconversion/v1/exchangerate`, {
+        headers: {
+          Accept: "application/json",
+          Content_Type: "application/json",
+          "X-DFS-API-PLAN": "DCI_CURRENCYCONVERSION_SANDBOX",
+          Authorization: this.state.token
+
+
+        },
+        params: {
+          currencycd: currencyType
+        }
+      })
+
+      console.log(`ExhcangeRate: ${response.data.exchange_rate}`)
+      return amount / response.data.exchange_rate
+
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
+
   handleYourCurrencyChange = (text) => {
     this.setState({investAmount: text })
   }
@@ -48,7 +100,13 @@ class CurrencyScreen extends Component {
   handleMyCurrencyTypeChange = (value) => {
     this.setState({investCurrency: value, showMyCurrency: false })
   }
-  handleLocalCurrencyTypeChange = (value) => {
+  handleLocalCurrencyTypeChange = async (value) => {
+    let newAmount = this.getExchangeRate(this.state.investAmount, value)
+        .then( (data) => {
+              this.setState({countryAmount: data.toFixed(2).toString()})
+        }
+
+        )
     this.setState({localCurrency: value, showLocalCurrency: false })
   }
 
