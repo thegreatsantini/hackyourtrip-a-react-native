@@ -79,6 +79,15 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  get-user:
+    handler: get-user.main
+    events:
+      - http:
+          path: users
+          method: get
+          cors: true
+          authorizer: aws_iam
+
   list-appointments-entrepreneur:
     # Defines an HTTP API endpoint that calls the main function in list-appointments-entrepreneur.js
     # - path: url path is /appointment
