@@ -1,30 +1,48 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import  authenticateUser  from "./utils"
-
-
+import authenticateUser  from "./utils"
 import AppNavigator from './config/routes';
-
 import { Provider } from './contexts';
-import Amplify from "aws-amplify";
+import Amplify, { Auth, API } from "aws-amplify";
 import config from "./config/config";
 import Sandbox from "./Sandbox";
 import CurrencyListScreen from './screens/CurrencyListScreen'
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: ""
+    }
+  }
+
+
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     });
-    // this.configure();
+
+    await this.configure();
+    console.log('Username: ', JSON.stringify(this.state.username))
+    // this.fetchProfile()
   }
+
+//   async fetchProfile() {
+//     try {
+
+//       return API.get("dc-concierge", `/appointments`)
+//     }
+//     catch(e) {
+//       console.log(e)
+//     }
+// }
 
 
   async configure() {
     const result = await Amplify.configure({
       Auth: {
-          mandatorySignIn: true,
+          mandatorySignIn: false,
           region: config.cognito.REGION,
           userPoolId: config.cognito.USER_POOL_ID,
           identityPoolId: config.cognito.IDENTITY_POOL_ID,
@@ -38,7 +56,7 @@ export default class App extends React.Component {
       API: {
           endpoints: [
               {
-                  name: "dc-concierge",
+                  name: "discover-hack",
                   endpoint: config.apiGateway.URL,
                   region: config.apiGateway.REGION
               },
@@ -48,10 +66,13 @@ export default class App extends React.Component {
   // console.log('Result: ', result);
   }
 
+  
+
+  
   render() {
     return (
       <Provider>
-        <AppNavigator/>
+        <AppNavigator />
       </Provider>
     );
   }
