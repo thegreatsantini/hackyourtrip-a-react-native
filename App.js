@@ -6,6 +6,7 @@ import  authenticateUser  from "./utils"
 import AppNavigator from './config/routes';
 
 import { Provider } from './contexts';
+import Sandbox from "./Sandbox";
 
 export default class App extends React.Component {
   async componentWillMount() {
@@ -17,7 +18,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider>
-        <AppNavigator />
+        <AppNavigator/>
       </Provider>
     );
   }
