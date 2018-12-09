@@ -19,6 +19,7 @@ import LoginScreen from "../screens/LoginScreen";
 import CreateAccountScreen from "../screens/CreateAccountScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import CurrencyScreen from "../screens/CurrencyScreen";
+import CurrencyListScreen from "../screens/CurrencyListScreen";
 
 
 const AuthStackNavigator = createStackNavigator({
@@ -42,10 +43,22 @@ const InvestStack = createStackNavigator({
     // ProfileScreen: {},
 })
 
+const CurrencyStack = createStackNavigator({
+    CurrencyScreen: {screen: CurrencyScreen},
+    CurrencyListScreen: {
+        screen: CurrencyListScreen,
+        navigationOptions: ({navigation}) => ({
+            headerTitle: navigation.state.params.title
+        })
+    }
+}, {
+    mode: 'modal'
+})
+
 const AppTabNavigator = createBottomTabNavigator({
     Restaurant: {screen: RestaurantStack},
     Invest: {screen: InvestStack},
-    Currency: {screen: CurrencyScreen},
+    Currency: {screen: CurrencyStack},
     Profile: {screen: ProfileScreen},
 })
 
