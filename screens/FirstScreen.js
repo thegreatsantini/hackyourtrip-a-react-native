@@ -21,20 +21,17 @@ class FirstScreen extends Component {
         return (
             <View style={styles.imageBackground}>
                 <ImageBackground
-                    source={{
-                        url:
-                            'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
-                    }}
+                    source={require('../assets/splash.png')}
                     style={styles.imageBackground}
                 >
                     <View style={styles.logoContainer}>
-                        <View style={styles.logoBackground}>
-                            <Image
-                                style={styles.logo}
-                                source={require('../assets/splash.png')}
-                                alt=""
-                            />
-                        </View>
+                        {/*<View style={styles.logoBackground}>*/}
+                            {/*<Image*/}
+                                {/*style={styles.logo}*/}
+                                {/*source={require('../assets/splash.png')}*/}
+                                {/*alt=""*/}
+                            {/*/>*/}
+                        {/*</View>*/}
                     </View>
                     <View style={styles.joinContainer}>
                         <View style={styles.joinText} />
@@ -51,7 +48,7 @@ class FirstScreen extends Component {
 
                         <View style={styles.button}>
                             <Button primary onPress={() => this.props.navigation.navigate("LoginScreen")}>
-                                <Text> Login in </Text>
+                                <Text> Log in </Text>
                             </Button>
                         </View>
                     </View>
