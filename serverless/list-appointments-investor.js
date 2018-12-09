@@ -1,17 +1,23 @@
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import {success, failure} from "./libs/response-lib";
 
+
+// We need to make another one of these functions, the key based on Entrepreneur vs Investor Id.
+// One for each index, rename the function to list-appointments-entrepreneur, rename the routes in sls.yml
+
+
 export async function main(event, context, callback) {
     const params = {
-        TableName: "Opportunities",
+        TableName: "Appointments",
         // 'KeyConditionExpression' defines the condition for the query
-        // - 'City': only return items with matching 'City'
+        // - 'InvestorId': only return items with matching 'InvestorId'
         // partition key
         // 'ExpressionAttributeValues' defines the value in the condition
-        // - ':City': defines 'City' as value of query
-        KeyConditionExpression: "City = :City",
+        // - ':InvestorId': defines 'InvestorId' to be Identity Pool identity id
+        // of the authenticated user
+        KeyConditionExpression: "InvestorId = :InvestorId",
         ExpressionAttributeValues: {
-            ":City": event.pathParameters.id
+            ":InvestorId": event.requestContext.identity.cognitoIdentityId
         }
     };
 

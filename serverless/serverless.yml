@@ -62,6 +62,14 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
+  create-transaction:
+    handler: create-transaction.main
+    events:
+      - http:
+          path: transactions
+          method: post
+          cors: true
+          authorizer: aws_iam
   create-user:
     handler: create-user.main
     events:
@@ -70,11 +78,20 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
-  list-appointments:
-    # Defines an HTTP API endpoint that calls the main function in list-appointments.js
+
+  list-appointments-entrepreneur:
+    # Defines an HTTP API endpoint that calls the main function in list-appointments-entrepreneur.js
     # - path: url path is /appointment
     # - method: GET request
-    handler: list-appointments.main
+    handler: list-appointments-entrepreneur.main
+    events:
+      - http:
+          path: appointments
+          method: get
+          cors: true
+          authorizer: aws_iam
+  list-appointments-investor:
+    handler: list-appointments-investor.main
     events:
       - http:
           path: appointments
@@ -82,13 +99,18 @@ functions:
           cors: true
           authorizer: aws_iam
   list-opportunities:
-    # Defines an HTTP API endpoint that calls the main function in list-opportunities.js
-    # - path: url path is /opportunity
-    # - method: GET request
     handler: list-opportunities.main
     events:
       - http:
           path: opportunities
+          method: get
+          cors: true
+          authorizer: aws_iam
+  list-transactions:
+    handler: list-transactions.main
+    events:
+      - http:
+          path: transactions
           method: get
           cors: true
           authorizer: aws_iam
