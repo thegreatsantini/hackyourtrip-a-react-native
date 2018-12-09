@@ -21,6 +21,9 @@ import SettingsScreen from "../screens/SettingsScreen";
 import CurrencyScreen from "../screens/CurrencyScreen";
 import CurrencyListScreen from "../screens/CurrencyListScreen";
 
+import {Provider} from "../CurrencyContext"
+import Sandbox from "../Sandbox";
+
 
 const AuthStackNavigator = createStackNavigator({
     FirstScreen: {screen: FirstScreen},
@@ -45,12 +48,12 @@ const InvestStack = createStackNavigator({
 
 const CurrencyStack = createStackNavigator({
     CurrencyScreen: {screen: CurrencyScreen},
-    CurrencyListScreen: {
-        screen: CurrencyListScreen,
-        navigationOptions: ({navigation}) => ({
-            headerTitle: navigation.state.params.title
-        })
-    }
+    // CurrencyListScreen: {
+    //     screen: CurrencyListScreen,
+    //     navigationOptions: ({navigation}) => ({
+    //         headerTitle: navigation.state.params.title
+    //     })
+    // }
 }, {
     mode: 'modal'
 })

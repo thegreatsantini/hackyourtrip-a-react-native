@@ -1,8 +1,20 @@
-import React, { Component } from "react";
-import { View, StyleSheet, Text, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from "react-native";
-import { Picker, Icon, Item, Input, Form } from "native-base";
-import currencyCodesData from "currency-codes/data";
-import InputWithButton from "../components/TextInputWithButton";
+import React, { Component } from 'react';
+
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Picker,
+  TouchableWithoutFeedback,
+  Keyboard
+} from 'react-native';
+
+
+
+import currencyCodesData from 'currency-codes/data';
+import InputWithButton from '../components/TextInputWithButton';
 
 class CurrencyScreen extends Component {
   state = {
@@ -10,10 +22,13 @@ class CurrencyScreen extends Component {
     investCurrency: 'USD',
     localCurrency: 'USD',
     investAmount: '1000',
-    countryAmount: '0'
+    countryAmount: '0',
+    showMyCurrency: false,
+    showLocalCurrency: false,
   };
 
   componentWillMount() {
+
     this.getCurrencies();
   }
 
@@ -27,40 +42,73 @@ class CurrencyScreen extends Component {
   };
 
   handleYourCurrencyChange = (text) => {
-    this.setState({investAmount: text})
+    this.setState({investAmount: text })
   }
 
-  handleOnPressCurrencyButton = () => {
-    this.props.navigation.navigate("CurrencyListScreen", {title: 'Your Currency'})
+  handleMyCurrencyTypeChange = (value) => {
+    this.setState({investCurrency: value, showMyCurrency: false })
   }
-
-  handleOnPressLocalCurrency = () => {
-    this.props.navigation.navigate("CurrencyListScreen", {title: "Local Currency"})
+  handleLocalCurrencyTypeChange = (value) => {
+    this.setState({localCurrency: value, showLocalCurrency: false })
   }
 
   render() {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
+          <View style={styles.container}>
 
-          <View>
-            <InputWithButton
-                buttonText={'USD'}
-                keyboardType={'numeric'}
-                onChangeText={this.handleYourCurrencyChange}
-                value={this.state.investAmount}
-                onPress={() => this.handleOnPressCurrencyButton()}
-            />
+            <View>
+              <InputWithButton
+                  buttonText={this.state.investCurrency}
+                  keyboardType={'numeric'}
+                  onChangeText={this.handleYourCurrencyChange}
+                  value={this.state.investAmount}
+                  onPress={() => this.setState({showMyCurrency: true})}
+              />
+            </View>
+            <View>
+              <InputWithButton
+                  buttonText={this.state.localCurrency}
+                  editable={false}
+                  value={this.state.countryAmount}
+                  onPress={() => this.setState({showLocalCurrency: true})}
+              />
+            </View>
+
+            {this.state.showMyCurrency
+                ? <View style={styles.pickerContainer}>
+                  <Picker
+                      selectedValue={this.state.investCurrency}
+                      style={[styles.picker]} itemStyle={styles.pickerItem}
+                      onValueChange={(itemValue, itemIndex) => this.handleMyCurrencyTypeChange(itemValue)}>
+                    {this.state.currencies.map((item) => <Picker.Item key={item} label={item} value={item} />)}
+
+                  </Picker>
+                  <View style={styles.arrowWrapper}>
+                    <Text style={styles.arrow}>&#9660;</Text>
+                  </View>
+                </View>
+                : null
+            }
+            {this.state.showLocalCurrency
+                ? <View style={styles.pickerContainer}>
+                  <Picker
+                      selectedValue={this.state.localCurrency}
+                      style={[styles.picker]} itemStyle={styles.pickerItem}
+                      onValueChange={(itemValue, itemIndex) => this.handleLocalCurrencyTypeChange(itemValue)}>
+                    {this.state.currencies.map((item) => <Picker.Item key={item} label={item} value={item} />)}
+
+                  </Picker>
+                  <View style={styles.arrowWrapper}>
+                    <Text style={styles.arrow}>&#9660;</Text>
+                  </View>
+                </View>
+                : null
+            }
+
+
+
           </View>
-          <View>
-            <InputWithButton
-                buttonText={'GBP'}
-                editable={false}
-                value={this.state.countryAmount}
-                onPress={() => this.handleOnPressLocalCurrency()}
-            />
-          </View>
-        </View>
         </TouchableWithoutFeedback>
     );
   }
@@ -79,21 +127,25 @@ const styles = StyleSheet.create({
   bubble: {
     paddingHorizontal: 20,
   },
-  pickerLeftContainer: {
-    marginLeft: 55,
+  pickerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    // alignItems: 'center',
+    marginTop: 0,
   },
   picker: {
-    width: 50,
-    height: 120,
+    width: 200,
+    height: 44,
     backgroundColor: '#FFF0E0',
     borderColor: 'red',
     borderBottomWidth: 2,
-    flex: 90,
+    flex: 90
   },
 
   pickerItem: {
-    height: 120,
-    color: 'red',
+    height: 44,
+    color: 'red'
   },
 
   arrowWrapper: {
@@ -101,13 +153,13 @@ const styles = StyleSheet.create({
     flex: 10,
     height: 40,
     marginLeft: -28,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 
   arrow: {
     textAlign: 'center',
     color: 'red',
-  },
+  }
 });
 
 export default CurrencyScreen;

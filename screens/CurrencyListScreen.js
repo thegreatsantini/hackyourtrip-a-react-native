@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import currencyCodesData from 'currency-codes/data';
+
+
 
 import ListItem from '../components/ListItem';
 import Separator from '../components/Separator';
@@ -9,6 +11,7 @@ const tempCurrency = 'CAD';
 class CurrencyListScreen extends Component {
   state = {
     currencies: [],
+    selectedCurrency: '',
   };
 
   componentWillMount() {
@@ -24,7 +27,8 @@ class CurrencyListScreen extends Component {
     this.setState({ currencies: currency });
   };
 
-  handlePress = () => {
+  handlePress = item => {
+
     this.props.navigation.goBack(null);
   };
 
