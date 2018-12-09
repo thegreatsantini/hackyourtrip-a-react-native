@@ -11,7 +11,6 @@ import {
 } from 'react-navigation'
 
 import FirstScreen from "../screens/FirstScreen";
-import AppointmentListScreen from "../screens/AppointmentListScreen";
 import InvestScreen from "../screens/InvestScreen";
 import RestaurantScreen from "../screens/RestaurantScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -34,12 +33,12 @@ const RestaurantStack = createStackNavigator({
 })
 
 const AppointmentListStack = createStackNavigator({
-    ClassList: {screen: AppointmentListScreen},
+    ClassList: {screen: InvestScreen},
 
 })
 
 const InvestStack = createStackNavigator({
-    StatsScreen: {screen: InvestScreen},
+    InvestScreen: {screen: InvestScreen},
     // ProfileScreen: {},
 })
 
