@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-const USER_GRANT_TYPE = "Client Credentials"
-const CLIENT_ID = "l7xx0021410252cb4d6d98283affc14ee1a4"
-const CLIENT_SECRET = "ad68d46e80a04df9b401e5445ff4e947"
-const SCOPE = "CITYGUIDES DCIOFFERS DCIOFFERS_POST DCILOUNGES DCILOUNGES_POST DCILOUNGES_PROVIDER_LG DCILOUNGES_PROVIDER_DCIPL DCI_ATM DCI_CURRENCYCONVERSION DCI_CUSTOMERSERVICE DCI_TIP"
-const TOKEN_URL = "https://api.discover.com/auth/oauth/v2/token"
+import {USER_GRANT_TYPE, CLIENT_ID, CLIENT_SECRET, SCOPE, TOKEN_URL} from "./keys";
 
 const authenticateUser = async () => {
 
