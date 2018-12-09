@@ -30,12 +30,11 @@ class RestaurantScreen extends Component {
 
     fetchRestaurants = async (token) => {
 
-        axios.get("https://apis.discover.com/cityguides/v2/merchants?card_network=DCI&merchant_city=Toronto", {
+        axios.get("https://apis.discover.com/cityguides/v2/merchants?card_network=DCI&merchant_city=Toronto&merchant_category=restaurants", {
             headers: {
                 'Content-Type': "application/json",
                 "x-dfs-api-plan": "CITYGUIDES_SANDBOX",
-                'Authorization': token,
-                'merchant_category': 'restaurants'
+                'Authorization': token
             }
         }).then(res => {
             const restaurants = res.data.result.slice(0, 4);
@@ -57,6 +56,7 @@ class RestaurantScreen extends Component {
                         this.state.restaurants.map((val, i) => {
                             return (
                                 <RestaurantCard
+                                    parentProps={this.props}
                                     key={i}
                                     img={ImgUrls[i]}
                                     name={val.name}
