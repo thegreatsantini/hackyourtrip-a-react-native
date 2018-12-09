@@ -17,7 +17,7 @@ export async function main(event, context, callback) {
         // of the authenticated user
         KeyConditionExpression: "InvestorId = :InvestorId",
         ExpressionAttributeValues: {
-            ":InvestorId": event.requestContext.identity.cognitoIdentityId
+            ":InvestorId": event.pathParameters.id
         }
     };
 

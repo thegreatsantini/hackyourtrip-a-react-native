@@ -14,11 +14,11 @@ class LoginScreen extends Component
         }
     }
     signIn = async () => {
-        // await AsyncStorage.setItem('userToken', 'fsa');
-
+        
         try {
             await Auth.signIn(this.state.email, this.state.password);
-            alert("Logged in");
+            // await AsyncStorage.setItem('userToken', 'username');
+            console.log("Logged in");
           } catch (e) {
             alert(e.message);
           }
