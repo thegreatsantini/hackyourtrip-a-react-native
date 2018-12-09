@@ -47,6 +47,7 @@ class InvestScreen extends Component {
         </ScrollView>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
