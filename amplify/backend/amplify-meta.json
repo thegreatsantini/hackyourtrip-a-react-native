@@ -1,0 +1,14 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "oncierge-20181208224433-authRole",
+            "UnauthRoleArn": "arn:aws:iam::583503676883:role/oncierge-20181208224433-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::583503676883:role/oncierge-20181208224433-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "oncierge-20181208224433-deployment",
+            "UnauthRoleName": "oncierge-20181208224433-unauthRole",
+            "StackName": "oncierge-20181208224433",
+            "StackId": "arn:aws:cloudformation:us-east-1:583503676883:stack/oncierge-20181208224433/e370e2b0-fb7d-11e8-84ee-0a456a010dd4"
+        }
+    }
+}
