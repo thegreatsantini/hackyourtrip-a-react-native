@@ -26,14 +26,15 @@ class InvestScreen extends Component {
                 title={'Project'}
                 subTitle={'Sub Title'}
                 date={'12/8/18 5:00 pm'}
+
             />
           </TouchableOpacity>
 
         </ScrollView>
 
-          <H1>Investmenst</H1>
+          <H1>Investments</H1>
           <ScrollView horizontal>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={ () => this.props.navigation.navigate("AppointmenDetails", {projectImage:"https://images.techhive.com/images/article/2016/11/computerworld_tech_forecast_2017_hottest-tech-skills-for-2017-100692085-large.jpg"})}>
                   <MediumCards profileImage={"https://res.cloudinary.com/somekindofidea/image/upload/v1544331451/david-wood-shed_kumeu9.jpg"}
                                projectTitle={'Sweet Project'}
                                fundedDate={'April 15, 2016'}

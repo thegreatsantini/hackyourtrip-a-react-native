@@ -23,6 +23,7 @@ import CurrencyListScreen from '../screens/CurrencyListScreen';
 
 import { Provider } from '../CurrencyContext';
 import Sandbox from '../Sandbox';
+import AppointmentsDetailsScreen from "../screens/AppointmentsDetailsScreen";
 
 const AuthStackNavigator = createStackNavigator({
   FirstScreen: { screen: FirstScreen },
@@ -40,6 +41,7 @@ const AppointmentListStack = createStackNavigator({
 
 const InvestStack = createStackNavigator({
   InvestScreen: { screen: InvestScreen },
+    AppointmenDetails: {screen: AppointmentsDetailsScreen}
   // ProfileScreen: {},
 });
 
