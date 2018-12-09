@@ -11,8 +11,6 @@ import {
   Keyboard
 } from 'react-native';
 
-
-
 import currencyCodesData from 'currency-codes/data';
 import InputWithButton from '../components/TextInputWithButton';
 
@@ -105,9 +103,21 @@ class CurrencyScreen extends Component {
                 </View>
                 : null
             }
-
-
-
+            <Text>Cost Comparison Table</Text>
+            <View style={styles.table}>
+              <View style={styles.leftCol}>
+                <Text style={styles.colHeader}>Item</Text>
+                <Text>New Car</Text>
+              </View>
+              <View style={styles.midCol}>
+                <Text style={styles.colHeader}>{this.state.localCurrency}</Text>
+                <Text>$36,000</Text>
+              </View>
+              <View style={styles.rightCol}>
+                <Text style={styles.colHeader}>{this.state.investCurrency}</Text>
+                <Text></Text>
+              </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
     );
@@ -159,7 +169,25 @@ const styles = StyleSheet.create({
   arrow: {
     textAlign: 'center',
     color: 'red',
+  },
+  table: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    
+  },
+  leftCol: {
+    flex:1,
+    alignItems: "center",
+  },
+  midCol: {
+    flex:1,
+    alignItems: "center",
+  },
+  rightCol: {
+    flex:1,
+    alignItems: "center",
   }
+
 });
 
 export default CurrencyScreen;
