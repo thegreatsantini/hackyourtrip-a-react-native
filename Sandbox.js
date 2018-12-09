@@ -11,6 +11,8 @@ import {
     Keyboard
 } from 'react-native';
 
+// import AppStateContext from '../contexts'
+
 import axios from 'axios'
 
 
@@ -23,16 +25,43 @@ class Sandbox extends Component {
     currencies: [],
     investCurrency: 'USD',
     localCurrency: 'USD',
-    investAmount: '1000',
+    investAmount: '1',
     countryAmount: '0',
     showMyCurrency: false,
     showLocalCurrency: false,
   };
 
-  componentWillMount() {
+  async componentWillMount() {
 
+
+
+    // console.log(fetch)
 
     // this.getCurrencies();
+  }
+
+  getExchangeRate = async (amount) => {
+    try {
+      const response = await axios.get(`https://api.discover.com/dci/currencyconversion/v1/exchangerate`, {
+        headers: {
+          Accept: "application/json",
+          Content_Type: "application/json",
+          "X-DFS-API-PLAN": "DCI_CURRENCYCONVERSION_SANDBOX",
+          Authorization: "Bearer 70493112-cc1c-43b4-b176-a353e8666751"
+
+
+        },
+        params: {
+          currencycd: 'USD'
+        }
+      })
+
+      return response.data.exchange_rate * amount
+
+    }
+    catch (e) {
+      console.log(e)
+    }
   }
 
   getCurrencies = () => {
