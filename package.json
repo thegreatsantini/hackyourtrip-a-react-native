@@ -7,6 +7,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "currency-codes": "^1.5.0",
     "expo": "^31.0.2",
     "native-base": "^2.8.1",
     "react": "16.5.0",

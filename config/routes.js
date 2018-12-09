@@ -20,6 +20,7 @@ import AuthLoadingScreen from "../screens/AuthloadingScreen";
 import LoginScreen from "../screens/LoginScreen";
 import CreateAccountScreen from "../screens/CreateAccountScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import CurrencyScreen from "../screens/CurrencyScreen";
 
 
 const AuthStackNavigator = createStackNavigator({
@@ -52,6 +53,7 @@ const AppTabNavigator = createBottomTabNavigator({
     Appointments: {screen: AppointmentListStack},
     Invest: {screen: InvestStack},
     Profile: {screen: ProfileScreen},
+    Currency: {screen: CurrencyScreen},
     More: {screen: MoreScreen}
 })
 
