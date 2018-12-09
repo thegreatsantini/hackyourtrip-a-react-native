@@ -5,26 +5,26 @@ import { Content, H1, H2, H3 } from 'native-base';
 import ProfileImage from '../components/ProfileImage';
 
 class SmallCards extends Component {
+
   render() {
+    const {profileImage, title, subTitle, date} = this.props
     return (
       <Content padder>
         <View style={styles.container}>
           <View style={styles.profileImageContainer}>
             <ProfileImage
-              source={
-                'https://www.arabiaweddings.com/sites/default/files/styles/400x400/public/companies/images/2017/01/pretty_lady_salon.jpg?itok=SO3sJT37'
-              }
+              source={profileImage}
               size={100}
             />
           </View>
           <View style={styles.titleContainer}>
-            <H3>SmallCards</H3>
+            <H3>{title}</H3>
           </View>
           <View style={styles.subTextContainer}>
-            <Text>Small Text</Text>
+            <Text>{subTitle}</Text>
           </View>
           <View style={styles.dateContainer}>
-            <Text>12/8/18 5:00 pm</Text>
+            <Text>{date}</Text>
           </View>
         </View>
       </Content>
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   },
     titleContainer: {
       paddingBottom: 3,
+      textAlign: 'center'
     },
     subTextContainer: {
       paddingBottom: 5,
