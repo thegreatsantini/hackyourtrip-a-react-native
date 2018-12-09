@@ -11,6 +11,8 @@ import {
     Keyboard
 } from 'react-native';
 
+import AppointmentsDetailsScreen from './screens/AppointmentsDetailsScreen'
+
 // import AppStateContext from '../contexts'
 
 import axios from 'axios'
@@ -86,62 +88,7 @@ class Sandbox extends Component {
 
   render() {
     return (
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-
-        <View>
-          <InputWithButton
-              buttonText={this.state.investCurrency}
-              keyboardType={'numeric'}
-              onChangeText={this.handleYourCurrencyChange}
-              value={this.state.investAmount}
-              onPress={() => this.setState({showMyCurrency: true})}
-          />
-        </View>
-        <View>
-          <InputWithButton
-              buttonText={this.state.localCurrency}
-              editable={false}
-              value={this.state.countryAmount}
-              onPress={() => this.setState({showLocalCurrency: true})}
-          />
-        </View>
-
-        {this.state.showMyCurrency
-            ? <View style={styles.pickerContainer}>
-              <Picker
-                  selectedValue={this.state.investCurrency}
-                  style={[styles.picker]} itemStyle={styles.pickerItem}
-                  onValueChange={(itemValue, itemIndex) => this.handleMyCurrencyTypeChange(itemValue)}>
-                {this.state.currencies.map((item) => <Picker.Item key={item} label={item} value={item} />)}
-
-              </Picker>
-              <View style={styles.arrowWrapper}>
-                <Text style={styles.arrow}>&#9660;</Text>
-              </View>
-            </View>
-            : null
-        }
-        {this.state.showLocalCurrency
-            ? <View style={styles.pickerContainer}>
-              <Picker
-                  selectedValue={this.state.localCurrency}
-                  style={[styles.picker]} itemStyle={styles.pickerItem}
-                  onValueChange={(itemValue, itemIndex) => this.handleLocalCurrencyTypeChange(itemValue)}>
-                {this.state.currencies.map((item) => <Picker.Item key={item} label={item} value={item} />)}
-
-              </Picker>
-              <View style={styles.arrowWrapper}>
-                <Text style={styles.arrow}>&#9660;</Text>
-              </View>
-            </View>
-            : null
-        }
-
-
-
-      </View>
-        </TouchableWithoutFeedback>
+        <AppointmentsDetailsScreen/>
     );
   }
 }
