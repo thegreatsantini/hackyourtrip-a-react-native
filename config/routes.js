@@ -20,7 +20,7 @@ import CreateAccountScreen from '../screens/CreateAccountScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import CurrencyScreen from '../screens/CurrencyScreen';
 import CurrencyListScreen from '../screens/CurrencyListScreen';
-
+import MakeAppointmentScreen from '../screens/MakeAppointmentScreen'
 import { Provider } from '../CurrencyContext';
 import Sandbox from '../Sandbox';
 import AppointmentsDetailsScreen from "../screens/AppointmentsDetailsScreen";
@@ -33,6 +33,7 @@ const AuthStackNavigator = createStackNavigator({
 
 const RestaurantStack = createStackNavigator({
   CheckinScreen: { screen: RestaurantScreen },
+  MakeAppointment: { screen: MakeAppointmentScreen },
 });
 
 const AppointmentListStack = createStackNavigator({

@@ -25,8 +25,11 @@ export default class CardImageExample extends Component {
                             </Button>
                         </Left>
                         <Right>
-                            <Button href={this.props.website} bordered>
-                                <Text>Visit Site</Text>
+                            <Button 
+                            onPress={() => this.props.parentPropsnavigation.navigate("MakeAppointmentScreen") }
+                            bordered
+                            >
+                                <Text>Appointments</Text>
                             </Button>
                         </Right>
                     </CardItem>
