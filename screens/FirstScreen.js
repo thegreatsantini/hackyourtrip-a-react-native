@@ -47,7 +47,7 @@ class FirstScreen extends Component {
                         </View>
 
                         <View style={styles.button}>
-                            <Button primary onPress={() => this.props.navigation.navigate("LoginScreen")}>
+                            <Button primary onPress={() => this.props.navigation.navigate("App")}>
                                 <Text> Log in </Text>
                             </Button>
                         </View>
