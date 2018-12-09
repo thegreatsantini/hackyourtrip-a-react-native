@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { View, StyleSheet, Image} from 'react-native';
 import { Container, Content, Card, Header, Title, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from "native-base";
 import { API, Auth } from "aws-amplify";
-import { invokeApig } from "../libs/awsLib";
 
 
 class ProfileScreen extends Component
