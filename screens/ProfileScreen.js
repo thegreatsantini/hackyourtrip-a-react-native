@@ -1,9 +1,53 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, Image} from 'react-native';
 import { Container, Content, Card, Header, Title, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from "native-base";
+import { API, Auth } from "aws-amplify";
+import { invokeApig } from "../libs/awsLib";
+
 
 class ProfileScreen extends Component
 {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            profile: {}
+        }
+    }
+
+    async componentDidMount() {
+      const session = await this.getSession()
+      console.log('Session: ', session)
+      const profile = await this.fetchProfile();
+      this.setState({ profile: profile})
+     console.log('Profile: ', profile)
+    }
+
+    async getSession() {
+      await Auth.currentSession()
+        .then((data) => {
+          console.log(data.idToken.payload.sub)
+          console.log('Data: ', data)
+          this.setState({username: data.idToken.payload.sub})
+        })
+        .catch(err => console.log(err));
+        
+    }
+
+    async fetchProfile() {
+      const id = "Seattle"
+        return API.get("discover-hack", `/opportunities/${id}`)
+    }
+
+    // async fetchProfile() {
+    //   const id = "6105b07b-fec7-4a28-a6a4-2c5244937eb0"
+
+    //   return invokeApig({
+    //     path: `/appointments`,
+    //    })
+    // }
+
+
+
     render()
     {
         return (

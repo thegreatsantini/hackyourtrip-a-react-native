@@ -14,7 +14,6 @@ export async function main(event, context, callback) {
             ":City": event.pathParameters.id
         }
     };
-
     try {
         const result = await dynamoDbLib.call("query", params);
         // Return the matching list of items in response body
