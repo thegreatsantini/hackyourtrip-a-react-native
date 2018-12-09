@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import  authenticateUser  from "./utils"
 
+
 import AppNavigator from './config/routes';
 
+import { Provider } from './contexts';
+
 export default class App extends React.Component {
-
   async componentWillMount() {
-
-    const test = await authenticateUser()
-    console.log(test)
+    await Expo.Font.loadAsync({
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+    });
   }
-
   render() {
-
     return (
-      <AppNavigator />
+      <Provider>
+        <AppNavigator />
+      </Provider>
     );
   }
 }

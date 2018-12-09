@@ -11,14 +11,15 @@ import {
 } from 'react-navigation'
 
 import FirstScreen from "../screens/FirstScreen";
-import ClassListScreen from "../screens/ClassListScreen";
-import StatsScreen from "../screens/StatsScreen";
+import AppointmentListScreen from "../screens/AppointmentListScreen";
+import InvestScreen from "../screens/InvestScreen";
 import MoreScreen from "../screens/MoreScreen";
-import CheckinScreen from "../screens/CheckinScreen";
-import ScheduleScreen from "../screens/ScheduleScreen";
+import RestaurantScreen from "../screens/RestaurantScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import AuthLoadingScreen from "../screens/AuthloadingScreen";
 import LoginScreen from "../screens/LoginScreen";
 import CreateAccountScreen from "../screens/CreateAccountScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 
 
 const AuthStackNavigator = createStackNavigator({
@@ -28,17 +29,17 @@ const AuthStackNavigator = createStackNavigator({
 
 })
 
-const CheckingStack = createStackNavigator({
-    CheckinScreen: {screen: CheckinScreen},
+const RestaurantStack = createStackNavigator({
+    CheckinScreen: {screen: RestaurantScreen},
 })
 
-const OnDemandStack = createStackNavigator({
-    ClassList: {screen: ClassListScreen},
+const AppointmentListStack = createStackNavigator({
+    ClassList: {screen: AppointmentListScreen},
 
 })
 
-const ProfileStack = createStackNavigator({
-    StatsScreen: {screen: StatsScreen},
+const InvestStack = createStackNavigator({
+    StatsScreen: {screen: InvestScreen},
     // ProfileScreen: {},
 })
 
@@ -47,19 +48,33 @@ const MoreStack = createStackNavigator({
 })
 
 const AppTabNavigator = createBottomTabNavigator({
-    Checking: {screen: CheckingStack},
-    OnDemand: {screen: OnDemandStack},
-    Stats: {screen: ProfileStack},
-    Schedule: {screen: ScheduleScreen},
+    Restaurant: {screen: RestaurantStack},
+    Appointments: {screen: AppointmentListStack},
+    Invest: {screen: InvestStack},
+    Profile: {screen: ProfileScreen},
     More: {screen: MoreScreen}
 })
 
 const AppStackNavigator = createStackNavigator({
-    AppTabNavigator : { screen: AppTabNavigator }
+    AppTabNavigator: {
+        screen: AppTabNavigator,
+        navigationOptions: ({ navigation }) => ({
+            title: 'FSA Hub',
+            headerLeft: (
+                <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+                    <View style={{ paddingHorizontal: 10 }}>
+                        <Ionicons name="md-menu" size={32} />
+                    </View>
+                </TouchableOpacity>
+            ),
+        }),
+    },
+
 })
 
 const AppDrawerNavigator = createDrawerNavigator({
     Home: AppTabNavigator,
+    Settings: { screen: SettingsScreen },
 })
 
 const AppNavigator = createSwitchNavigator({

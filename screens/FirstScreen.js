@@ -4,7 +4,7 @@ import { View, StyleSheet, Text, Button} from 'react-native';
 class FirstScreen extends Component
 {
     componentWillMount() {
-        console.log("****************TEST**************")
+
     }
 
     render()
