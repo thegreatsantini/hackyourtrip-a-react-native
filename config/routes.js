@@ -13,13 +13,13 @@ import {
 import FirstScreen from "../screens/FirstScreen";
 import AppointmentListScreen from "../screens/AppointmentListScreen";
 import InvestScreen from "../screens/InvestScreen";
-import MoreScreen from "../screens/MoreScreen";
 import RestaurantScreen from "../screens/RestaurantScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import AuthLoadingScreen from "../screens/AuthloadingScreen";
 import LoginScreen from "../screens/LoginScreen";
 import CreateAccountScreen from "../screens/CreateAccountScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import CurrencyScreen from "../screens/CurrencyScreen";
 
 
 const AuthStackNavigator = createStackNavigator({
@@ -43,23 +43,18 @@ const InvestStack = createStackNavigator({
     // ProfileScreen: {},
 })
 
-const MoreStack = createStackNavigator({
-    MoreScreen: {screen: MoreScreen}
-})
-
 const AppTabNavigator = createBottomTabNavigator({
     Restaurant: {screen: RestaurantStack},
-    Appointments: {screen: AppointmentListStack},
     Invest: {screen: InvestStack},
+    Currency: {screen: CurrencyScreen},
     Profile: {screen: ProfileScreen},
-    More: {screen: MoreScreen}
 })
 
 const AppStackNavigator = createStackNavigator({
     AppTabNavigator: {
         screen: AppTabNavigator,
         navigationOptions: ({ navigation }) => ({
-            title: 'FSA Hub',
+            title: 'Discover Investment Concierge',
             headerLeft: (
                 <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
                     <View style={{ paddingHorizontal: 10 }}>

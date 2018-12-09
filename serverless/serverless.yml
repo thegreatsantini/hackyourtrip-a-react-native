@@ -1,0 +1,117 @@
+# NOTE: update this with your service name
+service: dc-concierge
+
+# Use the serverless-webpack plugin to transpile ES6
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+# serverless-webpack configuration
+# Enable auto-packing of external modules
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: prod
+  region: us-east-1
+  # To load environment variables externally
+  # rename env.example to env.yml and uncomment
+  # the following line. Also, make sure to not
+  # commit your env.yml.
+  #
+  #environment: ${file(env.yml):${self:provider.stage}}
+
+# 'iamRoleStatements' defines the permission policy for the Lambda function.
+# In this case Lambda functions are granted with permissions to access DynamoDB.
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:DescribeTable
+      - dynamodb:Query
+      - dynamodb:Scan
+      - dynamodb:GetItem
+      - dynamodb:PutItem
+      - dynamodb:UpdateItem
+      - dynamodb:DeleteItem
+    Resource: "arn:aws:dynamodb:us-east-1:*:*"
+
+functions:
+  # Defines an HTTP API endpoint that calls the main function in create-appointment.js
+  # - path: url path is /appointment
+  # - method: POST request
+  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
+  #     domain api call
+  # - authorizer: authenticate using the AWS IAM role
+  create-appointment:
+    handler: create-appointment.main
+    events:
+      - http:
+          path: appointments
+          method: post
+          cors: true
+          authorizer: aws_iam
+  create-opportunity:
+    handler: create-opportunity.main
+    events:
+      - http:
+          path: opportunities
+          method: post
+          cors: true
+          authorizer: aws_iam
+  create-transaction:
+    handler: create-transaction.main
+    events:
+      - http:
+          path: transactions
+          method: post
+          cors: true
+          authorizer: aws_iam
+  create-user:
+    handler: create-user.main
+    events:
+      - http:
+          path: users
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  list-appointments-entrepreneur:
+    # Defines an HTTP API endpoint that calls the main function in list-appointments-entrepreneur.js
+    # - path: url path is /appointment
+    # - method: GET request
+    handler: list-appointments-entrepreneur.main
+    events:
+      - http:
+          path: appointments
+          method: get
+          cors: true
+          authorizer: aws_iam
+  list-appointments-investor:
+    handler: list-appointments-investor.main
+    events:
+      - http:
+          path: appointments
+          method: get
+          cors: true
+          authorizer: aws_iam
+  list-opportunities:
+    handler: list-opportunities.main
+    events:
+      - http:
+          path: opportunities
+          method: get
+          cors: true
+          authorizer: aws_iam
+  list-transactions:
+    handler: list-transactions.main
+    events:
+      - http:
+          path: transactions
+          method: get
+          cors: true
+          authorizer: aws_iam
+        
