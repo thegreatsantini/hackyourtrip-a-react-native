@@ -1,144 +1,127 @@
 import React, { Component } from 'react';
-
 import {
   View,
   StyleSheet,
-  Text,
-  ScrollView,
   TouchableOpacity,
-  Picker,
-    TouchableWithoutFeedback,
-    Keyboard
+  ImageBackground,
+  Image,
+  Alert,
+  AsyncStorage,
+  StatusBar,
 } from 'react-native';
-
-import AppointmentsDetailsScreen from './screens/AppointmentsDetailsScreen'
-
-// import AppStateContext from '../contexts'
-
-import axios from 'axios'
-
-
-
-import currencyCodesData from 'currency-codes/data';
-import InputWithButton from './components/TextInputWithButton';
+import { Constants } from 'expo';
+import { H1, H2, H3, Text, Button } from 'native-base';
 
 class Sandbox extends Component {
-  state = {
-    currencies: [],
-    investCurrency: 'USD',
-    localCurrency: 'USD',
-    investAmount: '1',
-    countryAmount: '0',
-    showMyCurrency: false,
-    showLocalCurrency: false,
+  static navigationOptions = {
+    header: null,
   };
-
-  async componentWillMount() {
-
-
-
-    // console.log(fetch)
-
-    // this.getCurrencies();
-  }
-
-  getExchangeRate = async (amount) => {
-    try {
-      const response = await axios.get(`https://api.discover.com/dci/currencyconversion/v1/exchangerate`, {
-        headers: {
-          Accept: "application/json",
-          Content_Type: "application/json",
-          "X-DFS-API-PLAN": "DCI_CURRENCYCONVERSION_SANDBOX",
-          Authorization: "Bearer 70493112-cc1c-43b4-b176-a353e8666751"
-
-
-        },
-        params: {
-          currencycd: 'USD'
-        }
-      })
-
-      return response.data.exchange_rate * amount
-
-    }
-    catch (e) {
-      console.log(e)
-    }
-  }
-
-  getCurrencies = () => {
-    let currency = [];
-    currencyCodesData.map(country => {
-      currency.push(country.code);
-    });
-
-    this.setState({ currencies: currency });
-  };
-
-  handleYourCurrencyChange = (text) => {
-    this.setState({investAmount: text })
-  }
-
-  handleMyCurrencyTypeChange = (value) => {
-    this.setState({investCurrency: value, showMyCurrency: false })
-  }
-  handleLocalCurrencyTypeChange = (value) => {
-    this.setState({localCurrency: value, showLocalCurrency: false })
-  }
 
   render() {
     return (
-        <AppointmentsDetailsScreen/>
+      <View style={styles.imageBackground}>
+        <ImageBackground
+          source={{
+            url:
+              'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
+          }}
+          style={styles.imageBackground}
+        >
+          <View style={styles.logoContainer}>
+            <View style={styles.logoBackground}>
+              <Image
+                style={styles.logo}
+                source={require('./assets/splash.png')}
+                alt=""
+              />
+            </View>
+          </View>
+          <View style={styles.joinContainer}>
+            <View style={styles.joinText} />
+
+            <View style={styles.joinTextSub}>{/*<Text>Test</Text>>*/}</View>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <View style={styles.button}>
+              <Button primary>
+                <Text> Primary </Text>
+              </Button>
+            </View>
+
+            <View style={styles.button}>
+              <Button primary>
+                <Text> Primary </Text>
+              </Button>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  imageBackground: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+  },
+  logoContainer: {
+    position: 'absolute',
+    top: 20,
+    right: 225,
+  },
+
+  logoBackground: {
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: Expo.Constants.statusBarHeight,
-  },
-  bubbleContainer: {
-    flexDirection: 'row',
-  },
-  bubble: {
-    paddingHorizontal: 20,
-  },
-  pickerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    // alignItems: 'center',
-    marginTop: 0,
-  },
-  picker: {
-    width: 200,
-    height: 44,
-    backgroundColor: '#FFF0E0',
-    borderColor: 'red',
-    borderBottomWidth: 2,
-    flex: 90
+    backgroundColor: '#fff',
+    width: 130,
+    height: 120,
   },
 
-  pickerItem: {
-    height: 44,
-    color: 'red'
+  logo: {
+    width: 100,
+    height: 100,
   },
 
-  arrowWrapper: {
-    backgroundColor: '#FFF0E0',
-    flex: 10,
-    height: 40,
-    marginLeft: -28,
-    justifyContent: 'center'
+  joinContainer: {
+    marginTop: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
-  arrow: {
+  joinText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    // paddingTop: 250
+  },
+
+  joinTextSub: {
+    paddingTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  buttonContainer: {
+    // marginTop: 25,
+    paddingHorizontal: 35,
+  },
+
+  button: {
+    paddingTop: 20,
+  },
+
+  buttonText: {
     textAlign: 'center',
-    color: 'red',
-  }
+  },
+
+  bottomDivider: {
+    backgroundColor: '#fff',
+    width: 3,
+    height: '100%',
+    marginRight: 10,
+  },
 });
 
 export default Sandbox;

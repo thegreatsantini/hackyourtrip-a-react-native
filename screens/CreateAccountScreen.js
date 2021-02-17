@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet, Text, TextInput, Button} from 'react-native';
 import { API } from 'aws-amplify';
 
 class CreateAccountScreen extends Component
@@ -9,14 +9,31 @@ class CreateAccountScreen extends Component
         try {
             // await Auth.signIn(this.state.email, this.state.password);
             // await AsyncStorage.setItem('userToken', 'username');
-            await API.post('discover-hack', `/users`)
-            console.log("Registered");
+            await this.sendRequest({
+                role: this.state.role,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                industry: this.state.industry,
+                city: this.state.city
+            })
+
           } catch (e) {
             alert(e.message);
           }
 
-        this.props.navigation.navigate('App');
+        // this.props.navigation.navigate('App');
     };
+
+
+    async sendRequest(message) {
+        const id = "6105b07b-fec7-4a28-a6a4-2c5244937eb0"
+        const response = await API.post('discover-hack', `/users/${id}`,{
+        body: message }
+         )
+        console.log('Request: ', response)
+        console.log("Registered");
+    }
+
     render()
     {
         return (
@@ -68,7 +85,6 @@ class CreateAccountScreen extends Component
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     }

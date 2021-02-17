@@ -20,7 +20,7 @@ export async function main(event, context, callback) {
 		// - 'CreatedAt': timestamp of transaction
 		
 		Item: {
-			InvestorId: event.requestContext.identity.cognitoIdentityId,
+			InvestorId: event.pathParameters.id,
 			EntrepreneurId: data.entrepreneurId,
 			TransactionId: uuid.v4(),
 			TransactionAmount: data.transactionAmount,

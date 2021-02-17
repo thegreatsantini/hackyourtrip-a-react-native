@@ -23,7 +23,7 @@ export async function main(event, context, callback) {
 		
 		Item: {
 			City: data.city,
-			EntrepreneurId: event.requestContext.identity.cognitoIdentityId,
+			EntrepreneurId: event.pathParameters.id,
 			OpportunityId: uuid.v4(),
 			Title: data.title,
 			Pitch: data.pitch,

@@ -20,7 +20,7 @@ export async function main(event, context, callback) {
 		
 		Item: {
 			// need to determine how to add multiple users
-			InvestorId: event.requestContext.identity.cognitoIdentityId,
+			InvestorId: event.pathParameters.id,
 			EntrepreneurId: data.entrepreneurId,
 			AppointmentId: uuid.v4(),
 			DateTime: data.time,
